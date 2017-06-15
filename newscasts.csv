@@ -1,0 +1,30 @@
+station,name,location,direct_url,feed_url,feed_filter,parse_url,parse_css_path,notes
+NPR,National Public Radio,,http://pd.npr.org/anon.npr-mp3/npr/news/newscast.mp3,,,,,
+KQED,Public Media for Northern California,,https://od1.kqed.org/anon.kqed/radio/RDnews/newscast.mp3?_=1,,,,,
+WNYC,,New York City,https://edge3-audio.wnyc.org/newscast/news_latest_newscast.mp3,,,,,
+WBUR,Boston’s NPR News Station,,http://audio.wbur.org/storage/latest/news.mp3,,,,,
+WAMU,,"American University in Washington DC",http://downloads.wamu.org/mp3/wamunews-manual.mp3,,,,,
+KNKX,,"Seattle, Tacoma, and the Puget Sound Region",http://groovenotes.org/nprone/newscast.mp3,,,,,
+MPR,Minnesota Public Radio,,,https://www.mprnews.org/podcasts/mprnews-update,,,,
+KWMU,St. Louis Public Radio,,https://kwmu-od.streamguys1.com/newscast.mp3,,,,,
+WUOM,Michigan Radio,,,,,,,http://michiganradio.org/rss
+WUNC,North Carolina Public Radio,,http://storyweb.wuncfm.unc.edu/dfd/wuncnewscast.mp3,,,,,
+KUT,Austin’s NPR Station,,http://media.publicbroadcasting.net/kut/newscast/newscast.mp4,,,,,"ftp://ftp.publicbroadcasting.net//newscast/newscast.mp4
+
+http://mediad.publicbroadcasting.net/p/newnprdsblog/files/KUT_Newscast_for_NPROne_Workflow.pdf"
+KRCC,Southern Colorado's NPR Station,,,http://krcc.org/podcasts/term/707/rss.xml,,,,
+VPR,Vermont's NPR News Source,,http://www.vpr.net/mobile/vprnewscast.mp3,,,,,"https://podcasts.vpr.net/vpr-news only with “newscast” in title, or http://www.vpr.net/apps/newscast/index.html"
+CPR,Colorado Public Radio,,http://newscast.cprnetwork.org/CPRNewsCast_NPR.mp4,,,,,also http://newscast.cprnetwork.org/CPRNewsCast.MP3
+KBIA,,Mid-Missouri,,https://kbia.drupal.publicbroadcasting.net/podcasts/rss.xml,title:newscast,,,
+KERA,North Texas Public Broadcasting,,http://www.kera.org/wp-content/uploads/nprone/newscast.wav,,,,,
+WPLN,Nashville Public Radio,,,,,http://nashvillepublicradio.org/post/local-newscast-wpln,,http://nashvillepublicradio.org/term/wpln-local-newscast or http://nashvillepublicradio.org/post/local-newscast-wpln#stream/0
+RIPR,Rhode Island Public Radio,,,,http://feeds.podtrac.com/SFDt7pVhWVlI,,,http://ripr.org/post/theec-download-most-recent-local-newscasts
+KVNF,"Mountain Grown Community Radio For Western Colorado",,,http://kvnf.org/podcasts/56/rss.xml,,,,
+KHNS,,"Haines, Skagway, and Klukwan, Alaska",,http://khns.org/feed,enclosure:newscast,,,
+KDAQ,Red River Radio,"East Texas, Louisiana, Arkansas and parts of Mississippi",,,,,,http://redriverradio.org/
+KFSK,,Central Southeast Alaska,,,,https://www.kfsk.org/latest-newscasts-4/,.post-content a[0]['href'],
+APR,Alabama Public Radio,,http://media.publicbroadcasting.net/wual/newscast/newscast.mp3,,,,,
+KTOO,,"Juneau, Alaska",,,,http://www.ktoo.org/category/news/1-sections/newscasts/,,
+MTPR,Montana Public Radio,,,https://kufm.drupal.publicbroadcasting.net/podcasts/term/209/rss.xml,,,,
+WHYY,,Greater Philadelphia,http://www.whyy.org/podcast/whyy_newscast.mp3,,,,,
+WDDE,"Delaware's source for NPR News",,http://media.publicbroadcasting.net/wdde/newscast/newscast.wav,,,,,

@@ -4,22 +4,32 @@ require 'sinatra'
 require 'time'
 
 class Newscast
-	attr_reader :station_title, :newscast_url
+	attr_reader :station_title, :newscast_url, :station_url
 
 	def initialize(**args)
 		@station_title = args[:station_title] || nil
 		@newscast_url = args[:newscast_url] || nil
+		@station_url = args[:station_url] || nil
 	end
 
 	def self.get_random_newscast
 		newscasts = SmarterCSV.process('newscasts.csv')
-
 		newscasts_easy = newscasts.select{|a| !a[:direct_url].nil? || !a[:feed_url].nil? }
+		
 		random_newscast_data = newscasts_easy.shuffle.first
+		newscast_url = self.get_newscast_url(random_newscast_data)
+
+		if newscast_url.nil?
+			while newscast_url.nil?
+				random_newscast_data = newscasts_easy.shuffle.first
+				newscast_url = self.get_newscast_url(random_newscast_data)
+			end
+		end
 
 		Newscast.new(
 			station_title: self.get_station_title(random_newscast_data),
-			newscast_url: self.get_newscast_url(random_newscast_data)
+			newscast_url: newscast_url,
+			station_url: random_newscast_data[:station_url]
 		)
 	end
 
@@ -57,8 +67,8 @@ class Newscast
 				else
 					url = rss.items.first.enclosure.url
 				end
-			rescue
-				# log
+			rescue => e
+				puts e
 			end
 		end
 
@@ -80,6 +90,6 @@ get '/alexa-flash-briefing' do
 		titleText: newscast.station_title,
 		mainText: '',
 		streamUrl: newscast.newscast_url,
-		redirectionUrl: ''
+		redirectionUrl: newscast.station_url
 	}
 end

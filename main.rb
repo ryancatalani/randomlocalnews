@@ -3,8 +3,29 @@ require 'rss'
 require 'sinatra'
 require 'time'
 
-module Newscast
-	def self.station_title(data)
+class Newscast
+	attr_reader :station_title, :newscast_url
+
+	def initialize(**args)
+		@station_title = args[:station_title] || nil
+		@newscast_url = args[:newscast_url] || nil
+	end
+
+	def self.get_random_newscast
+		newscasts = SmarterCSV.process('newscasts.csv')
+
+		newscasts_easy = newscasts.select{|a| !a[:direct_url].nil? || !a[:feed_url].nil? }
+		random_newscast_data = newscasts_easy.shuffle.first
+
+		Newscast.new(
+			station_title: self.get_station_title(random_newscast_data),
+			newscast_url: self.get_newscast_url(random_newscast_data)
+		)
+	end
+
+	private
+
+	def self.get_station_title(data)
 		ret = [data[:station]]
 
 		if !data[:name].nil?
@@ -20,7 +41,7 @@ module Newscast
 		ret.join('')
 	end
 
-	def self.newscast_url(data)
+	def self.get_newscast_url(data)
 		url = nil
 
 		if !data[:direct_url].nil?
@@ -48,30 +69,17 @@ module Newscast
 		end
 	end
 
-	def self.get_random_newscast
-		newscasts = SmarterCSV.process('newscasts.csv')
-
-		newscasts_easy = newscasts.select{|a| !a[:direct_url].nil? || !a[:feed_url].nil? }
-		random_newscast_data = newscasts_easy.shuffle.first
-
-		return {
-			station_title: self.station_title(random_newscast_data),
-			newscast_url: self.newscast_url(random_newscast_data)
-		}
-	end
 end
 
-get '/alexa-flash-briefing'
+get '/alexa-flash-briefing' do
 	newscast = Newscast.get_random_newscast
 
 	ret = {
 		uid: 'TK',
 		updateDate: Time.now.utc.iso8601,
-		titleText: newscast[:station_title],
+		titleText: newscast.station_title,
 		mainText: '',
-		streamUrl: newscast[:newscast_url],
+		streamUrl: newscast.newscast_url,
 		redirectionUrl: ''
 	}
 end
-
-Newscast.get_random_newscast

@@ -89,7 +89,7 @@ get '/afb' do
 	content_type :json
 
 	newscast = Newscast.get_random_newscast
-	domain = settings.development? ? "https://34efde41.ngrok.io" : "TKTK"
+	domain = settings.development? ? "https://34efde41.ngrok.io" : "https://randomlocalnews.herokuapp.com"
 
 	ret = {
 		uid: "#{newscast.callsign}-#{Time.now.utc.iso8601}",

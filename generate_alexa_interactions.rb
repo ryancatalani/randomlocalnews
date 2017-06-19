@@ -2,7 +2,21 @@ require 'json'
 
 # Inputs
 
-intents = %w(getRandomNewscast)
+intents = %w(
+	getRandomNewscast
+	AMAZON.PauseIntent
+	AMAZON.ResumeIntent
+	AMAZON.CancelIntent
+	AMAZON.LoopOffIntent
+	AMAZON.LoopOnIntent
+	AMAZON.NextIntent
+	AMAZON.PreviousIntent
+	AMAZON.RepeatIntent
+	AMAZON.ShuffleOffIntent
+	AMAZON.ShuffleOnIntent
+	AMAZON.StartOverIntent
+	AMAZON.HelpIntent
+)
 
 # Alexa, ask //skill title// to…
 utterances = {
@@ -11,7 +25,8 @@ utterances = {
 		"give me a newscast",
 		"play some headlines",
 		"play me the news",
-		"give me some news"
+		"give me some news",
+		"play something"
 	]
 }
 

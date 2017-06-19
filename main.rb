@@ -1,6 +1,7 @@
 require 'smarter_csv'
 require 'rss'
 require 'sinatra'
+require 'time'
 
 module Newscast
 	def self.station_title(data)
@@ -58,6 +59,19 @@ module Newscast
 			newscast_url: self.newscast_url(random_newscast_data)
 		}
 	end
+end
+
+get '/alexa-flash-briefing'
+	newscast = Newscast.get_random_newscast
+
+	ret = {
+		uid: 'TK',
+		updateDate: Time.now.utc.iso8601,
+		titleText: newscast[:station_title],
+		mainText: '',
+		streamUrl: newscast[:newscast_url],
+		redirectionUrl: ''
+	}
 end
 
 Newscast.get_random_newscast

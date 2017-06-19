@@ -2,14 +2,16 @@ require 'smarter_csv'
 require 'rss'
 require 'sinatra'
 require 'time'
+require 'json'
 
 class Newscast
-	attr_reader :station_title, :newscast_url, :station_url
+	attr_reader :station_title, :newscast_url, :station_url, :callsign
 
-	def initialize(**args)
-		@station_title = args[:station_title] || nil
-		@newscast_url = args[:newscast_url] || nil
-		@station_url = args[:station_url] || nil
+	def initialize(data, **args)
+		@station_title = args[:station_title] || self.class.get_station_title(data) || nil
+		@newscast_url = args[:newscast_url] || self.class.get_newscast_url(data) || nil
+		@station_url = args[:station_url] || data[:station_url] || nil
+		@callsign = args[:callsign] || data[:station] || nil
 	end
 
 	def self.get_random_newscast
@@ -26,11 +28,13 @@ class Newscast
 			end
 		end
 
-		Newscast.new(
-			station_title: self.get_station_title(random_newscast_data),
-			newscast_url: newscast_url,
-			station_url: random_newscast_data[:station_url]
-		)
+		Newscast.new(random_newscast_data, newscast_url: newscast_url)
+	end
+
+	def self.find_by_callsign(callsign)
+		newscasts = SmarterCSV.process('newscasts.csv')
+		newscast_found = newscasts.select{|a| a[:station].downcase == callsign.downcase}.first
+		Newscast.new(newscast_found)
 	end
 
 	private
@@ -81,15 +85,25 @@ class Newscast
 
 end
 
-get '/alexa-flash-briefing' do
+get '/afb' do
+	content_type :json
+
 	newscast = Newscast.get_random_newscast
+	domain = settings.development? ? "https://34efde41.ngrok.io" : "TKTK"
 
 	ret = {
-		uid: 'TK',
+		uid: "#{newscast.callsign}-#{Time.now.utc.iso8601}",
 		updateDate: Time.now.utc.iso8601,
-		titleText: newscast.station_title,
-		mainText: '',
-		streamUrl: newscast.newscast_url,
+		titleText: "Local headlines from #{newscast.station_title}",
+		mainText: "",
+		streamUrl: "#{domain}/afb/audio/#{newscast.callsign}",
 		redirectionUrl: newscast.station_url
 	}
+
+	JSON.pretty_generate(ret)
+end
+
+get '/afb/audio/:callsign' do
+	newscast = Newscast.find_by_callsign(params[:callsign])
+	redirect newscast.newscast_url
 end

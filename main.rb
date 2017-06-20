@@ -14,17 +14,17 @@ class Newscast
 		@callsign = args[:callsign] || data[:station] || nil
 	end
 
-	def self.get_random_newscast
+	def self.get_random_newscast(**args)
 		newscasts = SmarterCSV.process('newscasts.csv')
 		newscasts_easy = newscasts.select{|a| !a[:direct_url].nil? || !a[:feed_url].nil? }
 		
 		random_newscast_data = newscasts_easy.shuffle.first
-		newscast_url = self.get_newscast_url(random_newscast_data)
+		newscast_url = self.get_newscast_url(random_newscast_data, args)
 
 		if newscast_url.nil?
 			while newscast_url.nil?
 				random_newscast_data = newscasts_easy.shuffle.first
-				newscast_url = self.get_newscast_url(random_newscast_data)
+				newscast_url = self.get_newscast_url(random_newscast_data, args)
 			end
 		end
 
@@ -35,6 +35,21 @@ class Newscast
 		newscasts = SmarterCSV.process('newscasts.csv')
 		newscast_found = newscasts.select{|a| a[:station].downcase == callsign.downcase}.first
 		Newscast.new(newscast_found)
+	end
+
+	def self.alexa_capable_count
+		capable_newscasts = []
+		
+		newscasts = SmarterCSV.process('newscasts.csv')
+		newscasts_easy = newscasts.select{|a| !a[:direct_url].nil? || !a[:feed_url].nil? }
+		newscasts_easy.each do |n|
+			newscast_url = self.get_newscast_url(n, alexa_capable: true)
+			capable_newscasts << n unless newscast_url.nil?
+		end
+
+		puts "Count: #{capable_newscasts.count}"
+		capable_newscasts.each{|n| puts n.inspect}
+		return capable_newscasts.count
 	end
 
 	private
@@ -55,7 +70,7 @@ class Newscast
 		ret.join('')
 	end
 
-	def self.get_newscast_url(data)
+	def self.get_newscast_url(data, **args)
 		url = nil
 
 		if !data[:direct_url].nil?
@@ -72,11 +87,17 @@ class Newscast
 					url = rss.items.first.enclosure.url
 				end
 			rescue => e
+				puts "Error on #{data[:feed_url]}"
 				puts e
 			end
 		end
 
-		if !url.nil? && url.split('.').last =~ /mp4|mp3|wav/
+		format_check = /mp4|mp3|m4a|wav/
+		if args[:alexa_capable]
+			format_check = /mp4|mp3|m4a/
+		end
+
+		if !url.nil? && url.split('.').last =~ format_check
 			return url
 		else
 			return nil
@@ -88,7 +109,7 @@ end
 get '/afb' do
 	content_type :json
 
-	newscast = Newscast.get_random_newscast
+	newscast = Newscast.get_random_newscast(alexa_capable: true)
 	domain = settings.development? ? "https://34efde41.ngrok.io" : "https://randomlocalnews.herokuapp.com"
 
 	ret = {

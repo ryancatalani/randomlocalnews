@@ -1,8 +1,10 @@
+require 'dotenv/load'
 require 'smarter_csv'
 require 'rss'
 require 'sinatra'
 require 'time'
 require 'json'
+require 'staccato'
 
 class Newscast
 	attr_reader :station_title, :newscast_url, :station_url, :callsign
@@ -106,8 +108,39 @@ class Newscast
 
 end
 
+enable :sessions
+
+helpers do
+	def staccato_track_event(opts={})
+		if @staccato_tracker.nil?
+			tracking_id = settings.development? ? ENV['GA_DEV'] : ENV['GA_PROD']
+			if session[:ga_client_id]
+				ga_client_id = session[:ga_client_id]
+			else
+				ga_client_id = session[:ga_client_id] = Staccato.build_client_id
+			end
+			@staccato_tracker = Staccato.tracker(tracking_id, ga_client_id, ssl: true)
+		end
+
+		ga_options = {
+			data_source: 'sinatra',
+			user_ip: request.ip,
+			user_agent: request.user_agent,
+			referrer: request.referer,
+			user_language: request.env['HTTP_ACCEPT_LANGUAGE']
+		}.merge(opts)
+
+		@staccato_tracker.event(ga_options)
+	end
+end
+
 get '/afb' do
 	content_type :json
+
+	staccato_track_event({
+		category: 'Alexa',
+		action: 'Activate Flash Briefing'
+	})
 
 	newscast = Newscast.get_random_newscast(alexa_capable: true)
 	domain = settings.development? ? "https://34efde41.ngrok.io" : "https://randomlocalnews.herokuapp.com"
@@ -125,6 +158,13 @@ get '/afb' do
 end
 
 get '/afb/audio/:callsign' do
+
+	staccato_track_event({
+		category: 'Alexa',
+		action: 'Get Flash Briefing Audio',
+		label: params[:callsign]
+	})
+
 	newscast = Newscast.find_by_callsign(params[:callsign])
 	redirect newscast.newscast_url
 end

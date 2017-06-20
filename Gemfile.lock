@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    dotenv (2.2.1)
     mustermann (1.0.0)
     rack (2.0.3)
     rack-protection (2.0.0)
@@ -11,14 +12,17 @@ GEM
       rack-protection (= 2.0.0)
       tilt (~> 2.0)
     smarter_csv (1.1.4)
+    staccato (0.5.1)
     tilt (2.0.7)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  dotenv
   sinatra
   smarter_csv
+  staccato
 
 RUBY VERSION
    ruby 2.4.1p111

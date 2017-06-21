@@ -5,6 +5,7 @@ require 'sinatra'
 require 'time'
 require 'json'
 require 'staccato'
+require 'airbrake'
 
 class Newscast
 	attr_reader :station_title, :newscast_url, :station_url, :callsign
@@ -108,6 +109,12 @@ class Newscast
 
 end
 
+Airbrake.configure do |c|
+  c.project_id = ENV['AIRBRAKE_PROJECT_ID']
+  c.project_key = ENV['AIRBRAKE_API_KEY']
+end
+
+use Airbrake::Rack::Middleware
 enable :sessions
 
 helpers do

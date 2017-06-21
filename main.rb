@@ -134,6 +134,10 @@ helpers do
 	end
 end
 
+get '/' do
+	erb :index
+end
+
 get '/afb' do
 	content_type :json
 

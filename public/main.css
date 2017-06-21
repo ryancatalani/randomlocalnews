@@ -1,0 +1,192 @@
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+html {
+  min-height: 100%; }
+
+body {
+  font: 16px/1.2em "Asap", "Helvetica Neue", Arial, Helvetica, sans-serif;
+  color: #fff;
+  min-height: 100%;
+  background-color: #37a8f8;
+  background-image: -webkit-gradient(linear, left top, right bottom, from(#37a8f8), to(#48a2a0));
+  background-image: -webkit-linear-gradient(left top, #37a8f8, #48a2a0);
+  background-image: -moz-linear-gradient(left top, #37a8f8, #48a2a0);
+  background-image: -o-linear-gradient(left top, #37a8f8, #48a2a0);
+  background-image: -ms-linear-gradient(left top, #37a8f8, #48a2a0);
+  background-image: linear-gradient(left top, #37a8f8, #48a2a0);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=1,StartColorStr='#37a8f8', EndColorStr='#48a2a0'); }
+
+header {
+  background-image: url(map_bkgd.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  text-align: center;
+  padding: 20px 20px 60px; }
+  @media (min-width: 600px) {
+    header {
+      height: 400px;
+      padding: 0 20px; } }
+  @media (min-width: 800px) {
+    header {
+      background-position: top center; } }
+  header .nav {
+    align-self: flex-start;
+    padding-top: 20px; }
+    header .nav .logo {
+      font-weight: bold;
+      font-size: 1.2em; }
+  header .places_wrap {
+    white-space: pre; }
+  header h1 {
+    font-size: 25px;
+    line-height: 1em;
+    margin-bottom: 10px;
+    padding-top: 40px; }
+    @media (min-width: 600px) {
+      header h1 {
+        padding-top: 100px;
+        font-size: 40px; } }
+  header h2 {
+    font-size: 18px;
+    line-height: 1em; }
+    @media (min-width: 600px) {
+      header h2 {
+        font-size: 30px; } }
+
+.wrap {
+  width: 95%;
+  margin: 0 auto; }
+  @media (min-width: 600px) {
+    .wrap {
+      width: 600px; } }
+
+.dialog {
+  margin-bottom: 15px; }
+  .dialog .dialog_user, .dialog .dialog_alexa {
+    background: #fff;
+    color: #777;
+    border-radius: 10px;
+    display: inline-block;
+    padding: 10px 15px;
+    position: relative; }
+    .dialog .dialog_user:after, .dialog .dialog_alexa:after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      border-width: 10px 10px 0;
+      border-style: solid;
+      border-color: #fff transparent;
+      display: block;
+      width: 0; }
+  .dialog .dialog_who {
+    font-size: 0.8em;
+    text-transform: uppercase; }
+  .dialog .dialog_user {
+    float: right; }
+    .dialog .dialog_user:after {
+      right: 20px; }
+    .dialog .dialog_user .dialog_who {
+      text-align: right; }
+  .dialog .dialog_alexa {
+    float: left; }
+    .dialog .dialog_alexa:after {
+      left: 20px; }
+  .dialog:after {
+    content: " ";
+    display: block;
+    clear: both; }
+
+em {
+  font-style: italic; }
+
+strong {
+  font-weight: bold; }
+
+a:link, a:visited {
+  color: #fff;
+  text-decoration: none;
+  position: relative;
+  white-space: pre; }
+  a:link:after, a:visited:after {
+    content: '';
+    width: 100%;
+    height: 0.4em;
+    background-color: rgba(255, 255, 255, 0.3);
+    left: 0;
+    bottom: 0px;
+    position: absolute;
+    -webkit-transition: height 0.1s, background-color 0.1s;
+    transition: height 0.1s, background-color 0.1s; }
+a:hover, a:active {
+  cursor: pointer; }
+  a:hover:after, a:active:after {
+    height: 1.1em;
+    background-color: rgba(255, 255, 255, 0.5); }
+
+h3 {
+  font-weight: bold;
+  font-size: 1.5em;
+  line-height: 1em;
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 15px; }
+
+p {
+  margin-bottom: 0.75em;
+  line-height: 1.3em; }
+  p.how {
+    text-align: center;
+    margin: 20px 0; }
+
+/*# sourceMappingURL=main.css.map */

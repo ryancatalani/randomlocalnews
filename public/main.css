@@ -105,8 +105,8 @@ header {
         font-size: 30px; } }
 
 .wrap {
-  width: 95%;
-  margin: 0 auto; }
+  width: 90%;
+  margin: 0 auto 40px; }
   @media (min-width: 600px) {
     .wrap {
       width: 600px; } }
@@ -179,7 +179,7 @@ h3 {
   font-size: 1.5em;
   line-height: 1em;
   text-align: center;
-  margin-top: 30px;
+  margin-top: 50px;
   margin-bottom: 15px; }
 
 p {

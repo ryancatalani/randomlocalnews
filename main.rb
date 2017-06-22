@@ -142,6 +142,7 @@ helpers do
 end
 
 get '/' do
+	@ga_id = settings.development? ? ENV['GA_DEV'] : ENV['GA_PROD']
 	erb :index
 end
 

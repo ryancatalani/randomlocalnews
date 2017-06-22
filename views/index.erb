@@ -6,6 +6,19 @@
 
 	<title>Random Local News</title>
 
+	<meta property="og:url" content="https://www.randomlocal.news" />
+	<meta property="og:title" content="Random Local News" />
+	<meta property="og:description" content="Use your Amazon Echo to hear headlines from random local public radio stations." />
+	<meta property="og:image" content="https://www.randomlocal.news/map_social.jpg" />
+
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:site" content="@magicofpi" />
+	<meta name="twitter:title" content="Random Local News" />
+	<meta name="twitter:description" content="Use your Amazon Echo to hear headlines from random local public radio stations." />
+	<meta name="twitter:image" content="https://www.randomlocal.news/map_social.jpg" />
+
+	<meta name="description" content="Use your Amazon Echo to hear headlines from random local public radio stations." />
+
 	<link href="https://fonts.googleapis.com/css?family=Asap:400,400i,700" rel="stylesheet">
 	<link rel="stylesheet" href="main.css">
 </head>
@@ -14,7 +27,7 @@
 	<header>
 		<div class="nav">
 			<div class="logo">Random Local News</div>
-			<a href="#" target="_blank"><i class="fa fa-amazon"></i> For Amazon Echo</a>
+			<a href="https://www.amazon.com/dp/B072Y1FXDZ" target="_blank"><i class="fa fa-amazon"></i> For Amazon Echo</a>
 		</div>
 
 		<div class="header_text">
@@ -27,7 +40,7 @@
 		<h3>How it works</h3>
 
 		<p class="how">
-			First, ask Alexa to activate the <a href="#" target="_blank">Random Local News skill</a>.
+			First, ask Alexa to activate the <a href="https://www.amazon.com/dp/B072Y1FXDZ" target="_blank">Random Local News skill</a>.
 		</p>
 
 		<div class="dialog">
@@ -67,7 +80,11 @@
 		</div>
 
 		<h3>Why listen to news from random places?</h3>
-		<p>Something</p>
+		<p>Increasingly, our most ubiquitous technologies has been upending the original premise of the internet. Instead of exposing us to a greater humanity, our ostensibly worldwide networks have only made us more insular. Opaque algorithms only show us what they think we&#8217;ll like—or at least, on which we&#8217;ll click &#8220;like.&#8221; Far from nudging us to widen our perspectives, the internet tempts our most tribalistic tendencies to associate only with those whose values and views hew closest to ours.</p>
+
+		<p>Discussions about this <a href="https://www.wired.com/2016/11/filter-bubble-destroying-democracy/">pernicious digital parochialism</a> were <a href="http://nymag.com/scienceofus/2016/11/how-facebook-and-the-filter-bubble-pushed-trump-to-victory.html">reinvigorated after the 2016 presidential election</a> laid bare its perils. This project is my first small contribution to the <a href="https://www.nytimes.com/2017/03/03/arts/the-battle-over-your-political-bubble.html">upswell of efforts</a> aiming to burst our filter bubbles.</p>
+
+		<p>Perhaps, by hearing slivers of news from around the country—deliberately non-personalized and unfiltered—we can gain a wider and deeper understanding of our nation. &#8220;Democracy works only if we citizens are capable of thinking beyond our narrow self-interest,&#8221; as Eli Pariser wrote in his seminal work, <em><a href="https://www.amazon.com/Filter-Bubble-What-Internet-Hiding/dp/1594203008">The Filter Bubble</a></em>. &#8220;But to do so, we need a shared view of the world we cohabit. We need to come into contact with other people’s lives and needs and desires.&#8221; In our Balkanized digital media landscape, I hope this can be one oasis of cohesion and serendipity.</p>
 
 		<h3>About</h3>
 		<p>
@@ -83,6 +100,17 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://use.fontawesome.com/abe5b38225.js"></script>
 	<script src="main.js"></script>
+
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', '<%= @ga_id %>', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
 
 </body>
 </html>

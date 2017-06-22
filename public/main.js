@@ -4,7 +4,7 @@ $(function(){
 		"Northern California",
 		"New York City",
 		"Boston",
-		"Washington, D.C",
+		"Washington, DC",
 		"Seattle",
 		"Minnesota",
 		"St. Louis",

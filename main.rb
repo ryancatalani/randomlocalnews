@@ -18,7 +18,7 @@ class Newscast
 	end
 
 	def self.get_random_newscast(**args)
-		newscasts = SmarterCSV.process('newscasts.csv')
+		newscasts = SmarterCSV.process('public/newscasts.csv')
 		newscasts_easy = newscasts.select{|a| !a[:direct_url].nil? || !a[:feed_url].nil? }
 		
 		random_newscast_data = newscasts_easy.shuffle.first
@@ -35,7 +35,7 @@ class Newscast
 	end
 
 	def self.find_by_callsign(callsign)
-		newscasts = SmarterCSV.process('newscasts.csv')
+		newscasts = SmarterCSV.process('public/newscasts.csv')
 		newscast_found = newscasts.select{|a| a[:station].downcase == callsign.downcase}.first
 		Newscast.new(newscast_found)
 	end
@@ -43,7 +43,7 @@ class Newscast
 	def self.alexa_capable_count
 		capable_newscasts = []
 		
-		newscasts = SmarterCSV.process('newscasts.csv')
+		newscasts = SmarterCSV.process('public/newscasts.csv')
 		newscasts_easy = newscasts.select{|a| !a[:direct_url].nil? || !a[:feed_url].nil? }
 		newscasts_easy.each do |n|
 			newscast_url = self.get_newscast_url(n, alexa_capable: true)
@@ -155,7 +155,7 @@ get '/afb' do
 	})
 
 	newscast = Newscast.get_random_newscast(alexa_capable: true)
-	domain = settings.development? ? "https://34efde41.ngrok.io" : "https://randomlocalnews.herokuapp.com"
+	domain = settings.development? ? "https://randomlocalnews.herokuapp.com" : "https://www.randomlocal.news"
 
 	ret = {
 		uid: "#{newscast.callsign}-#{Time.now.utc.iso8601}",
@@ -179,4 +179,23 @@ get '/afb/audio/:callsign' do
 
 	newscast = Newscast.find_by_callsign(params[:callsign])
 	redirect newscast.newscast_url
+end
+
+get '/web_demo.json' do
+	content_type :json
+	staccato_track_event({
+		category: 'Web demo',
+		action: 'Activate web demo'
+	})
+
+	newscast = Newscast.get_random_newscast(alexa_capable: true)
+	domain = settings.development? ? "https://randomlocalnews.herokuapp.com" : "https://www.randomlocal.news"
+
+	ret = {
+		titleText: newscast.station_title,
+		streamUrl: newscast.newscast_url,
+		redirectionUrl: newscast.station_url
+	}
+
+	JSON.pretty_generate(ret)
 end
